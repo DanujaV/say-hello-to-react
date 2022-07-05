@@ -17,7 +17,12 @@ class Countable extends Component {
         })
     }
 
-    
+    decrementCount() {
+        console.log("decrement function calling");
+        this.setState({
+            count: this.state.count - 1
+        })
+    }
 
     render() {
         const count = 0;
@@ -29,12 +34,23 @@ class Countable extends Component {
                 <Button
                     variant="contained"
                     onClick={() => {
-                        console.log('clicked!')
+                        console.log('Increase button clicked!')
                         this.incrementCount()
 
                     }}
                 >
                     Increase!
+                </Button>
+                <Button
+                    variant="outlined"
+                    onClick={() => {
+                        console.log('Decrease button clicked!')
+                        this.decrementCount()
+
+                    }}
+                    style={{marginLeft: '15px'}}
+                >
+                    Decrease!
                 </Button>
             </div>
         )
