@@ -24,6 +24,13 @@ class Countable extends Component {
         })
     }
 
+    resetCount() {
+        console.log("reset function calling");
+        this.setState({
+            count: 0
+        })
+    }
+
     render() {
         const count = 0;
         return (
@@ -51,6 +58,18 @@ class Countable extends Component {
                     style={{marginLeft: '15px'}}
                 >
                     Decrease!
+                </Button>
+                <Button
+                    variant="outlined"
+                    color="error"
+                    onClick={() => {
+                        console.log('Reset button clicked!')
+                        this.resetCount()
+
+                    }}
+                    style={{marginLeft: '15px'}}
+                >
+                    Reset!
                 </Button>
             </div>
         )
