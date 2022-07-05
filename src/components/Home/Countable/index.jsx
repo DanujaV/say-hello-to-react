@@ -96,6 +96,7 @@ class Countable extends Component {
                     label="Reset!"
                     variant="outlined"
                     color="error"
+                    // disabled={true}
                     onClick={() => {
                         console.log('Reset button clicked!')
                         this.resetCount()
