@@ -1,4 +1,6 @@
 import { Component } from "react";
+import Typography from '@mui/material/Typography';
+import ijse_logo from "../../../assets/img/ijse_logo.png"
 
 class Greeting extends Component {
     constructor(props) {
@@ -10,12 +12,16 @@ class Greeting extends Component {
             <div>
                 <div>
                     <Typography variant="h3" gutterBottom component="div">
-                        Hello GDSE
+                        Hello {this.props.name}
                     </Typography>
                 </div>
-                <div></div>
+                <div>
+                   <img src={ijse_logo} alt="https://www.ijse.lk"/> 
+                </div>
             </div>
         )
     }
 
 }
+
+export default Greeting
