@@ -20,10 +20,16 @@ class Login extends Component {
 
     checkValidity() {
         console.log("Login button clicked!")
-        console.log("User name: " + this.state.userName)
-        console.log("Password: " + this.state.pw)
 
         console.log(this.state.formData)
+        
+        let formData = this.state.formData
+
+        if(formData.user_name === this.state.userName && formData.password === this.state.pw) {
+            console.log('credential matched!')
+        } else {
+            console.log('credential didn\'t matche!')
+        }
     }
 
     render() {
