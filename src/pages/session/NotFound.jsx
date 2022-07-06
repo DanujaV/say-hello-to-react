@@ -32,7 +32,7 @@ class NotFound extends Component {
                 <div className={classes.img__container}>
                     <img src={not_found} alt="" />
                 </div>
-                <Link to="/login">
+                <Link to="/">
                     <GDSEButton
                         variant="contained"
                         label="Back to home page"
