@@ -4,6 +4,7 @@ import React, { Component } from "react";
 import { styleSheet } from "./style";
 import TextField from '@mui/material/TextField';
 import GDSEButton from "../../components/common/Button";
+import GDSESnackBar from "../../components/common/SnackBar";
 
 class Login extends Component {
     constructor(props) {
@@ -14,7 +15,11 @@ class Login extends Component {
             formData: {
                 user_name: '',
                 password: ''
-            }
+            },
+            //for snackbar props
+            open: false,
+            message: '',
+            severity: ''
         }
     }
 
@@ -22,13 +27,23 @@ class Login extends Component {
         console.log("Login button clicked!")
 
         console.log(this.state.formData)
-        
+
         let formData = this.state.formData
 
-        if(formData.user_name === this.state.userName && formData.password === this.state.pw) {
+        if (formData.user_name === this.state.userName && formData.password === this.state.pw) {
             console.log('credential matched!')
+            this.setState({
+                open: true,
+                message: 'User credential matching sucess!',
+                severity: 'success'
+            })
         } else {
             console.log('credential didn\'t matche!')
+            this.setState({
+                open: true,
+                message: 'User credential not matching!',
+                severity: 'error'
+            })
         }
     }
 
@@ -49,7 +64,7 @@ class Login extends Component {
                                 console.log(e.target.value)
                                 let formData = this.state.formData
                                 formData.user_name = e.target.value
-                                this.setState({formData}) 
+                                this.setState({ formData })
                             }}
                         />
                         <TextField
@@ -61,7 +76,7 @@ class Login extends Component {
                                 console.log(e.target.value)
                                 let formData = this.state.formData
                                 formData.password = e.target.value
-                                this.setState({formData})
+                                this.setState({ formData })
                             }}
                         />
                     </div>
@@ -75,7 +90,16 @@ class Login extends Component {
                         />
                     </div>
                 </div>
-
+                <GDSESnackBar
+                    open={this.state.open}
+                    onClose={() => {
+                        this.setState({ open: false })
+                    }}
+                    message={this.state.message}
+                    autoHideDuration={3000}
+                    severity={this.state.severity}
+                    variant="filled"
+                />
             </div>
         )
     }
