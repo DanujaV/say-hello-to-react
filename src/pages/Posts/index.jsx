@@ -9,7 +9,7 @@ import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import PostService from "../../services/PostService";
 import GDSESnackBar from "../../components/common/SnackBar";
 import { DataGrid, trTR } from '@mui/x-data-grid';
-import BasicPostTable from "../../components/Posts/Table";
+import BasicPostTable from "../../components/Posts/Table/BasicTable";
 
 class Posts extends Component {
     constructor(props) {
