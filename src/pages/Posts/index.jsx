@@ -8,8 +8,8 @@ import GDSEButton from "../../components/common/Button";
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import PostService from "../../services/PostService";
 import GDSESnackBar from "../../components/common/SnackBar";
-import { DataGrid, trTR } from '@mui/x-data-grid';
 import BasicPostTable from "../../components/Posts/Table/BasicTable";
+import GDSEDataTable from "../../components/common/Table";
 
 class Posts extends Component {
     constructor(props) {
@@ -40,6 +40,31 @@ class Posts extends Component {
              ],*/
             data: [],
             loaded: false,
+
+            //for data table
+            columns: [
+                {
+                    field: 'id',
+                    headerName: 'Post Id',
+                    width: 70
+                },
+                {
+                    field: 'userId',
+                    headerName: 'User Id',
+                    width: 130
+                },
+                {
+                    field: 'title',
+                    headerName: 'Title',
+                    width: 500,
+                    sortable: false
+                },
+                {
+                    field: 'body',
+                    headerName: 'Body',
+                    width: 620
+                },
+            ]
         }
     }
 
@@ -176,8 +201,15 @@ class Posts extends Component {
                 {/* created loaded variable in the state. inside the loadData method if only data loaded from the API,
                                 set loaded variable true. below table is render only loaded == true */}
                 {this.state.loaded &&
-                    <Grid container spacing={0.5} style={{ height: 400, width: '100%', marginTop: '50px' }}>
-                        <BasicPostTable data={this.state.data} />
+                    <Grid container style={{ height: 400, width: '100%', marginTop: '50px' }}>
+                        {/* <BasicPostTable data={this.state.data} /> */}
+                        <GDSEDataTable
+                            columns={this.state.columns}
+                            rows={this.state.data}
+                            rowsPerPageOptions={5}
+                            pageSize={5}
+                            // checkboxSelection={true}
+                        />
                     </Grid>
                 }
                 <GDSESnackBar
