@@ -8,6 +8,8 @@ import GDSEButton from "../../components/common/Button";
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import PostService from "../../services/PostService";
 import GDSESnackBar from "../../components/common/SnackBar";
+import { DataGrid, trTR } from '@mui/x-data-grid';
+import BasicPostTable from "../../components/Posts/Table";
 
 class Posts extends Component {
     constructor(props) {
@@ -21,15 +23,34 @@ class Posts extends Component {
             },
             alert: false,
             message: '',
-            severity: ''
+            severity: '',
+
+            //for table
+            //this data array is used to input data to the table as sample data
+            /* data: [
+                 { id: 1, userId: 'Snow', title: 'Jon', body: 35 },
+                 { id: 2, userId: 'Lannister', title: 'Cersei', body: 42 },
+                 { id: 3, userId: 'Lannister', title: 'Jaime', body: 45 },
+                 { id: 4, userId: 'Stark', title: 'Arya', body: 16 },
+                 { id: 5, userId: 'Targaryen', title: 'Daenerys', body: null },
+                 { id: 6, userId: 'Melisandre', title: null, body: 150 },
+                 { id: 7, userId: 'Clifford', title: 'Ferrara', body: 44 },
+                 { id: 8, userId: 'Frances', title: 'Rossini', body: 36 },
+                 { id: 9, userId: 'Roxie', title: 'Harvey', body: 65 },
+             ],*/
+            data: [],
+            loaded: false,
         }
     }
 
     async loadData() {
         let res = await PostService.fetchPosts();
-        if(res.status === 200) {
+        if (res.status === 200) {
+            this.setState({
+                loaded: true,
+                data: res.data
+            })
             console.log("res: " + JSON.stringify(res.data))
-            // console.log("res: " + res.data)
 
         } else {
             console.log("fetching error: " + res)
@@ -150,7 +171,15 @@ class Posts extends Component {
                             <GDSEButton size="small" variant="contained" label="save" type="submit" />
                         </Grid>
                     </Grid>
+
                 </ValidatorForm>
+                {/* created loaded variable in the state. inside the loadData method if only data loaded from the API,
+                                set loaded variable true. below table is render only loaded == true */}
+                {this.state.loaded &&
+                    <Grid container spacing={0.5} style={{ height: 400, width: '100%', marginTop: '50px' }}>
+                        <BasicPostTable data={this.state.data} />
+                    </Grid>
+                }
                 <GDSESnackBar
                     open={this.state.alert}
                     onClose={() => {
@@ -162,7 +191,6 @@ class Posts extends Component {
                     variant="filled"
                 />
             </Fragment>
-
         )
     }
 }
