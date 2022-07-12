@@ -23,8 +23,25 @@ class Posts extends Component {
             message: '',
             severity: ''
         }
-
     }
+
+    async loadData() {
+        let res =-await PostService.fetchPosts();
+        if(res.status === 200) {
+            console.log("res: " + res)
+        } else {
+            console.log("error: " + res)
+        }
+    }
+
+    componentDidMount() {
+        console.log('Post Screen Mounted!');
+        this.loadData();
+    }
+
+    // componentWillUnmount() {
+    //     console.log("Post Scren Unmounted!!")
+    // }
 
     handleSubmit = async () => {
         console.log('save button clicked!!')
