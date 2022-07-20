@@ -6,6 +6,7 @@ import NotFound from "../pages/session/NotFound";
 import FlexBoxLayout from "../pages/Layouts/FlexBox";
 import GridLayout from "../pages/Layouts/Gird";
 import Posts from "../../src/pages/Posts";
+import Customer from "../pages/Customers";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path='login' element={<Login/>}/>
         <Route path='flex-layout' element={<FlexBoxLayout/>}/>
         <Route path='grid-layout' element={<GridLayout/>}/>
+        <Route path='customer-manage' element={<Customer/>}/>
         <Route path="*" element={<NotFound/>}/>
     </Routes>
 
