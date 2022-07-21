@@ -11,6 +11,10 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import DeleteIcon from '@mui/icons-material/Delete';
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
+import EditIcon from '@mui/icons-material/Edit';
 
 class Customer extends Component {
     constructor(props) {
@@ -26,9 +30,26 @@ class Customer extends Component {
             message: '',
             severity: '',
 
-            data: []
+            data: [],
+            btnLabel: 'save',
+            btnColor: 'primary'
         }
     }
+
+    updateCustomer = (data) => {
+         console.log(data)
+
+         this.setState({ 
+            btnLabel: 'update',
+            btnColor: 'secondary',
+            formData: {
+                id: data.id,
+                name: data.name,
+                address: data.address,
+                salary: data.salary
+            }  
+        });
+    };
 
     clearFields = () => {
         this.setState({
@@ -166,7 +187,7 @@ class Customer extends Component {
                             />
                         </Grid>
                         <Grid container style={{ marginTop: '10px' }} direction="row" justifyContent="flex-end" alignItems="center">
-                            <GDSEButton label="save" type="submit" size="small" color="primary" variant="outlined" />
+                            <GDSEButton label={this.state.btnLabel} type="submit" size="small" color={this.state.btnColor} variant="contained"/>
                         </Grid>
                     </Grid>
                 </ValidatorForm>
@@ -179,6 +200,7 @@ class Customer extends Component {
                                     <TableCell align="left">Customer Name</TableCell>
                                     <TableCell align="left">Customer Address</TableCell>
                                     <TableCell align="left">Customer Salary</TableCell>
+                                    <TableCell align="left">Action</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -189,6 +211,23 @@ class Customer extends Component {
                                             <TableCell align="left">{row.name}</TableCell>
                                             <TableCell align="left">{row.address}</TableCell>
                                             <TableCell align="left">{row.salary}</TableCell>
+                                            <TableCell align="left">
+                                                <Tooltip title="Edit">
+                                                    <IconButton 
+                                                        onClick={() => {
+                                                            console.log("edit icon clicked!")
+                                                            this.updateCustomer(row);
+                                                        }}
+                                                    >
+                                                        <EditIcon color="primary" />
+                                                    </IconButton>
+                                                </Tooltip>
+                                                <Tooltip title="Delete">
+                                                    <IconButton>
+                                                        <DeleteIcon color="error" />
+                                                    </IconButton>
+                                                </Tooltip>
+                                            </TableCell>
                                         </TableRow>
                                     ))
                                 }
