@@ -36,6 +36,28 @@ class Customer extends Component {
         }
     }
 
+    deleteCustomer = async (id) => {
+        let params = {
+            id: id
+        }
+         let res = await CustomerService.deleteCustomer(params);
+
+         if(res.status === 200) {
+            this.setState({
+                alert: true,
+                message: res.data.message,
+                severity: 'success'
+            });
+            this.loadData();
+         } else {
+            this.setState({
+                alert: true,
+                message: res.data.message,
+                severity: 'error'
+            });
+         }
+    };
+
     updateCustomer = (data) => {
          console.log(data)
 
@@ -246,7 +268,11 @@ class Customer extends Component {
                                                     </IconButton>
                                                 </Tooltip>
                                                 <Tooltip title="Delete">
-                                                    <IconButton>
+                                                    <IconButton
+                                                        onClick={() => {
+                                                            this.deleteCustomer(row.id)
+                                                        }}
+                                                    >
                                                         <DeleteIcon color="error" />
                                                     </IconButton>
                                                 </Tooltip>
