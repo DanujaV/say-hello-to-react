@@ -85,23 +85,46 @@ class Customer extends Component {
 
     submitCustomer = async () => {
         let formData = this.state.formData;
-        let res = await CustomerService.postCustomer(formData);
 
-        console.log(res)    //print the promise
+        if(this.state.btnLabel === "save") {
+            let res = await CustomerService.postCustomer(formData);
 
-        if (res.status === 201) {
-            this.setState({
-                alert: true,
-                message: res.data.message,
-                severity: 'success'
-            });
-            this.clearFields();
+            console.log(res)    //print the promise
+    
+            if (res.status === 201) {
+                this.setState({
+                    alert: true,
+                    message: res.data.message,
+                    severity: 'success'
+                });
+                this.clearFields();
+                this.loadData();
+            } else {
+                this.setState({
+                    alert: true,
+                    message: res.response.data.message,
+                    severity: 'error'
+                });
+            }
         } else {
-            this.setState({
-                alert: true,
-                message: res.response.data.message,
-                severity: 'error'
-            });
+            let res = await CustomerService.putCustomer(formData);
+            if(res.status === 200) {
+                this.setState({
+                    alert: true,
+                    message: res.data.message,
+                    severity: 'success',
+                    btnLabel: 'save',
+                    btnColor: 'primary'
+                });
+                this.clearFields();
+                this.loadData();
+            } else {
+                this.setState({
+                    alert: true,
+                    message: res.response.data.message,
+                    severity: 'error'
+                });
+            }
         }
     };
 

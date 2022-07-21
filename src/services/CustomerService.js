@@ -27,6 +27,18 @@ class CustomerService {
         })
         return await promise;
     }
+
+    putCustomer = async (data) => {
+         const promise = new Promise((resolve, reject) => {
+            axios.put('customer', data)
+            .then((res) => {
+                return resolve(res)
+            })
+            .catch((err) => {
+                return resolve(err)
+            })
+         })
+         return await promise;
+    };
 }
 export default new CustomerService();
-
