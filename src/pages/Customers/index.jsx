@@ -34,6 +34,17 @@ class Customer extends Component {
         });
     };
 
+    // React Map function example
+
+    // exampleForMap = () => {
+    //     this.state.data.map((value) => {
+    //         console.log(value)
+    //     })
+    // };
+
+
+    
+
     loadData = async () => {
         let res = await CustomerService.fetchCustomer();
 
@@ -42,6 +53,10 @@ class Customer extends Component {
                 data: res.data.data
             });
         }
+        console.log(this.state.data)    // print customers array
+
+        // this.exampleForMap()
+
     };
 
     submitCustomer = async () => {
