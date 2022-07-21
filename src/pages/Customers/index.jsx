@@ -4,6 +4,13 @@ import { TextValidator, ValidatorForm } from "react-material-ui-form-validator";
 import GDSEButton from '../../components/common/Button';
 import CustomerService from "../../services/CustomerService";
 import GDSESnackBar from "../../components/common/SnackBar";
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 
 class Customer extends Component {
     constructor(props) {
@@ -34,16 +41,12 @@ class Customer extends Component {
         });
     };
 
-    // React Map function example
-
-    // exampleForMap = () => {
-    //     this.state.data.map((value) => {
-    //         console.log(value)
-    //     })
-    // };
-
-
-    
+    // ------- React Map function example -------
+    exampleForMap = () => {
+        this.state.data.map((value, index) => {
+            console.log(value)   // access element one by one
+        })
+    };
 
     loadData = async () => {
         let res = await CustomerService.fetchCustomer();
@@ -55,7 +58,7 @@ class Customer extends Component {
         }
         console.log(this.state.data)    // print customers array
 
-        // this.exampleForMap()
+        this.exampleForMap()
 
     };
 
@@ -167,6 +170,32 @@ class Customer extends Component {
                         </Grid>
                     </Grid>
                 </ValidatorForm>
+                <Grid contaner style={{ marginTop: '15px' }}>
+                    <TableContainer component={Paper}>
+                        <Table sx={{ minWidth: 650 }} aria-label="customer table">
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell align="left">Customer Id</TableCell>
+                                    <TableCell align="left">Customer Name</TableCell>
+                                    <TableCell align="left">Customer Address</TableCell>
+                                    <TableCell align="left">Customer Salary</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {
+                                    this.state.data.map((row) => (
+                                        <TableRow>
+                                            <TableCell align="left">{row.id}</TableCell>
+                                            <TableCell align="left">{row.name}</TableCell>
+                                            <TableCell align="left">{row.address}</TableCell>
+                                            <TableCell align="left">{row.salary}</TableCell>
+                                        </TableRow>
+                                    ))
+                                }
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </Grid>
                 <GDSESnackBar
                     open={this.state.alert}
                     onClose={() => {
