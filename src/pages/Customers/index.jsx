@@ -17,7 +17,9 @@ class Customer extends Component {
             },
             alert: false,
             message: '',
-            severity: ''
+            severity: '',
+
+            data: []
         }
     }
 
@@ -30,6 +32,16 @@ class Customer extends Component {
                 salary: ''
             }
         });
+    };
+
+    loadData = async () => {
+        let res = await CustomerService.fetchCustomer();
+
+        if (res.status === 200) {
+            this.setState({
+                data: res.data.data
+            });
+        }
     };
 
     submitCustomer = async () => {
@@ -53,6 +65,10 @@ class Customer extends Component {
             });
         }
     };
+
+    componentDidMount() {
+        this.loadData();
+    }
 
     render() {
         return (
